@@ -125,15 +125,18 @@ if not SCRIPTS_TO_DOWNLOAD or #SCRIPTS_TO_DOWNLOAD == 0 then
     print("Please check REPO_OWNER, REPO_NAME, REPO_BRANCH, and SCRIPT_FOLDER_NAME configuration.")
     -- Continue to the next step, but no scripts will be downloaded.
 else
-    print("Found " .. #SCRIPTS_TO_DOWNLOAD .. " scripts to download.")
+    -- print("Found " .. #SCRIPTS_TO_DOWNLOAD .. " scripts to download.")
     -- 4. Download and update all specified scripts
-    print("\n--- Downloading/Updating Scripts from GitHub ---")
+    -- print("\n--- Downloading/Updating Scripts from GitHub ---")
+    local downloaded_count = 0
     for _, filename in ipairs(SCRIPTS_TO_DOWNLOAD) do
         local source_url = REPO_BASE_URL .. filename
         local destination_path = SCRIPT_FOLDER_NAME .. "/" .. filename
-        downloadFile(source_url, destination_path)
+        if downloadFile(source_url, destination_path) then
+            downloaded_count = downloaded_count + 1
+        end
     end
-    print("--- Script Update Complete ---\n")
+    print(downloaded_count .. " scripts updated/downloaded to /" .. SCRIPT_FOLDER_NAME .. " folder.\n")
 end
 
 
@@ -141,7 +144,7 @@ end
 -- The script name to run is now defined in the SCRIPT_TO_AUTO_RUN variable at the top.
 if SCRIPT_TO_AUTO_RUN and SCRIPT_TO_AUTO_RUN ~= "" then
     local full_script_path = SCRIPT_FOLDER_NAME .. "/" .. SCRIPT_TO_AUTO_RUN
-    print("Attempting to run specified script: /" .. full_script_path)
+    print("Running specified script: /" .. full_script_path)
 
     if fs.exists(full_script_path) then
         local success, reason = pcall(shell.run, full_script_path)
