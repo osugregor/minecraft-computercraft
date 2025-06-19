@@ -119,7 +119,9 @@ else
         term.clear()
         term.setCursorPos(1,1)    
         term.setTextColor(colors.orange)
-        print("Terminal Startup Success: " .. downloaded_count .. " scripts updated/downloaded to /" .. SCRIPT_FOLDER_NAME .. " folder.\n")
+        print("Terminal Startup Success: " .. downloaded_count .. " scripts updated\n")
+        term.setTextColor(colors.grey)
+        shell.run("motd")
         term.setTextColor(colors.white) -- Reset color
     else
         printError("!!!!ERRORS OCCURED DURING STARTUP, CHECK THE LOGS ABOVE!!!!!!")
