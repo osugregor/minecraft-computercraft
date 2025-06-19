@@ -119,7 +119,7 @@ else
         term.clear()
         term.setCursorPos(1,1)    
         term.setTextColor(colors.orange)
-        print("Terminal Startup Success: " .. downloaded_count .. " scripts updated\n")
+        print("GregOS 1.0.0 Started (" .. downloaded_count .. " scripts)")
         term.setTextColor(colors.lightGray)
         shell.run("motd")
         term.setTextColor(colors.white) -- Reset color
