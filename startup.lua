@@ -120,7 +120,7 @@ else
         term.setCursorPos(1,1)    
         term.setTextColor(colors.orange)
         print("Terminal Startup Success: " .. downloaded_count .. " scripts updated\n")
-        term.setTextColor(colors.grey)
+        term.setTextColor(colors.cyan)
         shell.run("motd")
         term.setTextColor(colors.white) -- Reset color
     else
