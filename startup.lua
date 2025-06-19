@@ -28,6 +28,9 @@ local SCRIPTS_TO_DOWNLOAD = {
 -- Example: local SCRIPT_TO_AUTO_RUN = "player_detector_script.lua"
 local SCRIPT_TO_AUTO_RUN = nil -- Set to nil or "your_script_name.lua"
 
+-- --- Internal Variables (Do not modify) ---
+local had_errors = false -- Flag to track if any errors occurred during execution
+
 -- --- Helper Functions ---
 
 -- Prints an error message in red for better visibility
@@ -35,18 +38,19 @@ local function printError(message)
     term.setTextColor(colors.red)
     print("ERROR: " .. message)
     term.setTextColor(colors.white) -- Reset color
+    had_errors = true -- Set the error flag
 end
 
 -- Downloads a single file from a given URL to a destination path using 'wget'.
 -- 'wget' in ComputerCraft by default overwrites existing files when an output filename is provided.
 local function downloadFile(url, destinationPath)
-    print("Downloading: " .. url)
+    -- print("Downloading: " .. url)
     local success, reason = pcall(shell.run, "wget", url, destinationPath)
     if not success then
         printError("Failed to download " .. destinationPath .. ": " .. tostring(reason))
         return false
     else
-        print("  -> Saved as /" .. destinationPath)
+        -- print("  -> Saved as /" .. destinationPath)
         return true
     end
 end
@@ -136,7 +140,17 @@ else
             downloaded_count = downloaded_count + 1
         end
     end
-    print(downloaded_count .. " scripts updated/downloaded to /" .. SCRIPT_FOLDER_NAME .. " folder.\n")
+
+    if not had_errors and downloaded_count == #SCRIPTS_TO_DOWNLOAD then
+        term.clear()
+        term.setCursorPos(1,1)    
+        term.setTextColor(colors.orange)
+        print(": " .. message)
+        print("Terminal Startup Success: " .. downloaded_count .. " scripts updated/downloaded to /" .. SCRIPT_FOLDER_NAME .. " folder.\n")
+        term.setTextColor(colors.white) -- Reset color
+    else
+        printError("!!!!ERRORS OCCURED DURING STARTUP, CHECK THE LOGS ABOVE!!!!!!")
+    end
 end
 
 
