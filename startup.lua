@@ -107,15 +107,25 @@ if os.getComputerLabel() == nil then
     term.setCursorPos(1, 1)
 end
 
--- 3. Create the target script folder if it doesn't exist
-if not fs.exists(SCRIPT_FOLDER_NAME) then
-    print("Creating script folder: /" .. SCRIPT_FOLDER_NAME)
-    local success, reason = pcall(fs.makeDir, SCRIPT_FOLDER_NAME)
+-- 3. Clean and recreate the script folder for a fresh install
+-- First, check if the folder already exists and remove it.
+if fs.exists(SCRIPT_FOLDER_NAME) then
+    print("Removing existing script folder: /" .. SCRIPT_FOLDER_NAME)
+    local success, reason = pcall(fs.delete, SCRIPT_FOLDER_NAME)
     if not success then
-        printError("Failed to create folder /" .. SCRIPT_FOLDER_NAME .. ": " .. tostring(reason))
-        return -- Exit if folder creation fails
+        printError("Failed to remove existing folder /" .. SCRIPT_FOLDER_NAME .. ": " .. tostring(reason))
+        return -- Exit if deletion fails, as we can't guarantee a clean state.
     end
 end
+
+-- Now, create a new, empty script folder.
+print("Creating script folder: /" .. SCRIPT_FOLDER_NAME)
+local success, reason = pcall(fs.makeDir, SCRIPT_FOLDER_NAME)
+if not success then
+    printError("Failed to create folder /" .. SCRIPT_FOLDER_NAME .. ": " .. tostring(reason))
+    return -- Exit if folder creation fails.
+end
+
 
 -- 4. Dynamically get list of scripts from GitHub
 print("\n--- Getting Script List from GitHub Repository ---")
