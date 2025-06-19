@@ -4,7 +4,7 @@
 local function findPlayerDetector()
     -- The peripheral type for Advanced Peripherals Player Detector is "playerDetector"
     --local detector = peripheral.find("playerDetector")
-    local detector = peripheral.wrap("right")
+    local detector = peripheral.wrap("left")
     
     if detector == nil then
         print("Advanced Peripherals Player Detector not found. Retrying in 5 seconds...")
@@ -31,16 +31,15 @@ while true do
             print("No players online.")
         end
 
-        -- Check if the player count is 1
-        if playerCount == 1 then
+        if playerCount == 0 then
             -- If there's only 1 player, output a redstone signal
             -- Replace "bottom" with the side you want the redstone to output from
-            rs.setOutput("bottom", true) 
+            rs.setOutput("right", true) 
             print("Player count is 1. Redstone output enabled.")
         else
             -- If there's more than 1 player, ensure redstone is off
             -- Replace "bottom" with the side you want the redstone to output from
-            rs.setOutput("bottom", false)
+            rs.setOutput("right", false)
             print("Player count is " .. playerCount .. ". Redstone output disabled.")
         end
     end
