@@ -14,7 +14,7 @@ local REPO_BRANCH = "main"                 -- e.g., "main" or "master" (default 
 local REPO_BASE_URL = "https://raw.githubusercontent.com/" .. REPO_OWNER .. "/" .. REPO_NAME .. "/refs/heads/" .. REPO_BRANCH .. "/scripts/"
 
 -- Folder where all your downloaded scripts will be stored on the ComputerCraft computer
-local SCRIPT_FOLDER_NAME = "greg"
+local SCRIPT_FOLDER_NAME = "scripts"
 
 -- List of scripts (filenames) to download from your GitHub repository.
 -- Ensure these filenames exactly match those in your GitHub repository.
