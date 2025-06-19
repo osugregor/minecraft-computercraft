@@ -119,7 +119,6 @@ else
         term.clear()
         term.setCursorPos(1,1)    
         term.setTextColor(colors.orange)
-        print(": " .. message)
         print("Terminal Startup Success: " .. downloaded_count .. " scripts updated/downloaded to /" .. SCRIPT_FOLDER_NAME .. " folder.\n")
         term.setTextColor(colors.white) -- Reset color
     else
