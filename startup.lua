@@ -11,9 +11,6 @@ local REPO_NAME = "minecraft-computercraft"  -- e.g., "computercraft-scripts"
 local REPO_BRANCH = "main"                 -- e.g., "main" or "master" (default branch)
 local SCRIPT_FOLDER_NAME = "scripts"
 
--- Base URL for raw files from your GitHub repository
-local REPO_BASE_URL = "https://raw.githubusercontent.com/" .. REPO_OWNER .. "/" .. REPO_NAME .. "/refs/heads/" .. REPO_BRANCH .. "/" .. SCRIPT_FOLDER_NAME .. "/"
-
 -- --- Internal Variables (Do not modify) ---
 local had_errors = false -- Flag to track if any errors occurred during execution
 
@@ -97,18 +94,10 @@ if not fs.exists(SCRIPT_FOLDER_NAME) then
     end
 end
 
--- 3. Download and update all specified scripts
--- print("\n--- Downloading/Updating Scripts from GitHub ---")
--- for _, filename in ipairs(SCRIPTS_TO_DOWNLOAD) do
---     local source_url = REPO_BASE_URL .. filename
---     local destination_path = SCRIPT_FOLDER_NAME .. "/" .. filename
---     downloadFile(source_url, destination_path)
--- end
--- print("--- Script Update Complete ---\n")
-
 -- 3. Dynamically get list of scripts from GitHub
 print("\n--- Getting Script List from GitHub Repository ---")
 local SCRIPTS_TO_DOWNLOAD = getGitHubFolderContents(REPO_OWNER, REPO_NAME, REPO_BRANCH, SCRIPT_FOLDER_NAME)
+local REPO_BASE_URL = "https://raw.githubusercontent.com/" .. REPO_OWNER .. "/" .. REPO_NAME .. "/refs/heads/" .. REPO_BRANCH .. "/" .. SCRIPT_FOLDER_NAME .. "/"
 
 if not SCRIPTS_TO_DOWNLOAD or #SCRIPTS_TO_DOWNLOAD == 0 then
     printError("Could not get a list of scripts from GitHub or the folder is empty.")
