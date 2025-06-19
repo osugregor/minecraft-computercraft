@@ -66,12 +66,6 @@ local function getGitHubFolderContents(owner, repo, branch, folderPath)
     local response_body = response_handle.readAll()
     response_handle.close()
 
-    if response_handle.getStatusCode() ~= 200 then
-        printError("GitHub API returned an error: " .. response_handle.getStatusMessage())
-        printError("Response body: " .. response_body)
-        return nil
-    end
-
     local success, data = pcall(textutils.unserializeJSON, response_body)
     if not success then
         printError("Failed to parse GitHub API response (JSON error): " .. tostring(data))
