@@ -114,7 +114,7 @@ while true do
                 monitor.write(table.concat(onlinePlayers, ", "))
             end
 
-            monitor.setCursorPos(1, 7)
+            monitor.setCursorPos(1, 8)
             monitor.write("Player of the day: osugregor")
         end
 
