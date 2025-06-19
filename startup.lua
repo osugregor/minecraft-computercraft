@@ -7,14 +7,14 @@
 local REPO_OWNER = "osugregor" -- e.g., "greg2025"
 local REPO_NAME = "minecraft-computercraft"  -- e.g., "computercraft-scripts"
 local REPO_BRANCH = "main"                 -- e.g., "main" or "master" (default branch)
+local SCRIPT_FOLDER_NAME = "scripts"
 
 -- Base URL for raw files from your GitHub repository
 -- This is constructed from the above variables.
 -- Example: https://raw.githubusercontent.com/YourGitHubUser/YourRepoName/main/
-local REPO_BASE_URL = "https://raw.githubusercontent.com/" .. REPO_OWNER .. "/" .. REPO_NAME .. "/refs/heads/" .. REPO_BRANCH .. "/scripts/"
+local REPO_BASE_URL = "https://raw.githubusercontent.com/" .. REPO_OWNER .. "/" .. REPO_NAME .. "/refs/heads/" .. REPO_BRANCH .. "/" .. SCRIPT_FOLDER_NAME .. "/"
 
--- Folder where all your downloaded scripts will be stored on the ComputerCraft computer
-local SCRIPT_FOLDER_NAME = "scripts"
+
 
 -- List of scripts (filenames) to download from your GitHub repository.
 -- Ensure these filenames exactly match those in your GitHub repository.
