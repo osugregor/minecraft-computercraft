@@ -1,6 +1,8 @@
--- startup.lua
--- This script downloads and updates other scripts from a GitHub repository
--- into a 'greg' folder. It can optionally run one of those scripts after updating.
+-- This script downloads and updates other scripts from gregs computer craft repository
+
+-- Optional: Specify a script to run automatically after all updates.
+-- Set this to nil (or an empty string) if you don't want any script to run automatically.
+local SCRIPT_TO_AUTO_RUN = nil
 
 -- --- Configuration ---
 -- IMPORTANT: You MUST update these variables with your GitHub details!
@@ -10,23 +12,7 @@ local REPO_BRANCH = "main"                 -- e.g., "main" or "master" (default 
 local SCRIPT_FOLDER_NAME = "scripts"
 
 -- Base URL for raw files from your GitHub repository
--- This is constructed from the above variables.
--- Example: https://raw.githubusercontent.com/YourGitHubUser/YourRepoName/main/
 local REPO_BASE_URL = "https://raw.githubusercontent.com/" .. REPO_OWNER .. "/" .. REPO_NAME .. "/refs/heads/" .. REPO_BRANCH .. "/" .. SCRIPT_FOLDER_NAME .. "/"
-
-
-
--- List of scripts (filenames) to download from your GitHub repository.
--- Ensure these filenames exactly match those in your GitHub repository.
-local SCRIPTS_TO_DOWNLOAD = {
-    "players_online.lua", -- Example: Your player detector script
-    "hello_world.lua",           -- Example: A script for an automatic farm
-}
-
--- Optional: Specify a script to run automatically after all updates.
--- Set this to nil (or an empty string) if you don't want any script to run automatically.
--- Example: local SCRIPT_TO_AUTO_RUN = "player_detector_script.lua"
-local SCRIPT_TO_AUTO_RUN = nil -- Set to nil or "your_script_name.lua"
 
 -- --- Internal Variables (Do not modify) ---
 local had_errors = false -- Flag to track if any errors occurred during execution
