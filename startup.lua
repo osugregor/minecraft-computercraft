@@ -5,10 +5,9 @@
 local SCRIPT_TO_AUTO_RUN = nil
 
 -- --- Configuration ---
--- IMPORTANT: You MUST update these variables with your GitHub details!
-local REPO_OWNER = "osugregor" -- e.g., "greg2025"
-local REPO_NAME = "minecraft-computercraft"  -- e.g., "computercraft-scripts"
-local REPO_BRANCH = "main"                 -- e.g., "main" or "master" (default branch)
+local REPO_OWNER = "osugregor"
+local REPO_NAME = "minecraft-computercraft"
+local REPO_BRANCH = "main"
 local SCRIPT_FOLDER_NAME = "scripts"
 
 -- --- Internal Variables (Do not modify) ---
