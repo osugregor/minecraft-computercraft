@@ -113,6 +113,9 @@ while true do
                 monitor.setCursorPos(1, 6)
                 monitor.write(table.concat(onlinePlayers, ", "))
             end
+
+            monitor.setCursorPos(1, 7)
+            monitor.write("Player of the day: osugregor")
         end
 
         -- === REDSTONE LOGIC ===
