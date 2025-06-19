@@ -31,11 +31,11 @@ while true do
             print("No players online.")
         end
 
-        if playerCount > 1 then
+        if playerCount == 0 then
             -- If there's only 1 player, output a redstone signal
             -- Replace "bottom" with the side you want the redstone to output from
             rs.setOutput("right", true) 
-            print("Player count is 1. Redstone output enabled.")
+            print("Player count is " .. playerCount .. ". Redstone output enabled.")
         else
             -- If there's more than 1 player, ensure redstone is off
             -- Replace "bottom" with the side you want the redstone to output from
