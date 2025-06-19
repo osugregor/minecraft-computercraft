@@ -83,7 +83,31 @@ if not http then
     return -- Exit the script if no internet access
 end
 
--- 2. Create the target script folder if it doesn't exist
+-- 2. Check and set the computer label if it's not already set
+-- This part of the script checks if the computer has a label. If not, it prompts
+-- the user to set one. This is useful for identifying computers on a network.
+if os.getComputerLabel() == nil then
+    term.clear()
+    term.setCursorPos(1, 1)
+    print("Initial setup: Computer label is not set.")
+    term.write("Please enter a label for this computer: ")
+    local newLabel = read()
+
+    -- Check if the user actually entered something (and not just whitespace)
+    if newLabel and newLabel:gsub("%s*", "") ~= "" then
+        os.setComputerLabel(newLabel)
+        print("\nComputer label has been set to: '" .. newLabel .. "'")
+        sleep(2) -- Pause to let the user read the confirmation
+    else
+        print("\nNo label entered. Skipping.")
+        sleep(2)
+    end
+    -- Clear the screen for the next steps
+    term.clear()
+    term.setCursorPos(1, 1)
+end
+
+-- 3. Create the target script folder if it doesn't exist
 if not fs.exists(SCRIPT_FOLDER_NAME) then
     print("Creating script folder: /" .. SCRIPT_FOLDER_NAME)
     local success, reason = pcall(fs.makeDir, SCRIPT_FOLDER_NAME)
@@ -93,7 +117,7 @@ if not fs.exists(SCRIPT_FOLDER_NAME) then
     end
 end
 
--- 3. Dynamically get list of scripts from GitHub
+-- 4. Dynamically get list of scripts from GitHub
 print("\n--- Getting Script List from GitHub Repository ---")
 local SCRIPTS_TO_DOWNLOAD = getGitHubFolderContents(REPO_OWNER, REPO_NAME, REPO_BRANCH, SCRIPT_FOLDER_NAME)
 local REPO_BASE_URL = "https://raw.githubusercontent.com/" .. REPO_OWNER .. "/" .. REPO_NAME .. "/refs/heads/" .. REPO_BRANCH .. "/" .. SCRIPT_FOLDER_NAME .. "/"
@@ -104,7 +128,7 @@ if not SCRIPTS_TO_DOWNLOAD or #SCRIPTS_TO_DOWNLOAD == 0 then
     -- Continue to the next step, but no scripts will be downloaded.
 else
     -- print("Found " .. #SCRIPTS_TO_DOWNLOAD .. " scripts to download.")
-    -- 4. Download and update all specified scripts
+    -- 5. Download and update all specified scripts
     -- print("\n--- Downloading/Updating Scripts from GitHub ---")
     local downloaded_count = 0
     for _, filename in ipairs(SCRIPTS_TO_DOWNLOAD) do
@@ -129,7 +153,7 @@ else
 end
 
 
--- 4. Optional: Run a specified script after updating
+-- 6. Optional: Run a specified script after updating
 -- The script name to run is now defined in the SCRIPT_TO_AUTO_RUN variable at the top.
 if SCRIPT_TO_AUTO_RUN and SCRIPT_TO_AUTO_RUN ~= "" then
     local full_script_path = SCRIPT_FOLDER_NAME .. "/" .. SCRIPT_TO_AUTO_RUN
@@ -154,4 +178,3 @@ else
 end
 
 -- print("\n--- Startup Script Finished ---")
-
